@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memuat manga… — Yomu</title>
+<meta name="description" content="Detail manga di Yomu.">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="shell navbar__inner">
+        <a href="/" class="brand">
+            <svg class="brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17.5A2.5 2.5 0 0 1 17.5 22H6.5A2.5 2.5 0 0 1 4 19.5v-15Z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M8 7h8M8 10.5h5"/></svg>
+            <span>Yo<span class="brand__accent">mu</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="/" data-page="home">Beranda</a>
+            <a href="/search.html?sort=popular" data-page="popular">Populer</a>
+            <a href="/search.html" data-page="search">Jelajahi</a>
+        </nav>
+        <form class="navbar__search js-search-form" role="search">
+            <div class="search-field">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input type="search" name="q" placeholder="Cari judul manga..." autocomplete="off" aria-label="Cari manga">
+            </div>
+        </form>
+        <button class="adult-toggle js-adult-toggle" type="button" aria-pressed="false" title="Tampilkan konten dewasa (18+)">
+            <span class="adult-toggle__text">18+</span>
+        </button>
+    </div>
+</header>
+
+<div id="page-root">
+    <main class="shell">
+        <div class="manga-header" id="manga-header">
+            <div class="manga-header__poster">
+                <div class="skeleton" style="aspect-ratio:7/10;border-radius:16px;"></div>
+            </div>
+            <div>
+                <div class="skeleton skeleton-line" style="width:55%;height:36px;margin-bottom:14px;"></div>
+                <div class="skeleton skeleton-line" style="width:35%;margin-bottom:22px;"></div>
+                <div class="skeleton skeleton-line" style="width:92%;margin-bottom:8px;"></div>
+                <div class="skeleton skeleton-line" style="width:88%;margin-bottom:8px;"></div>
+                <div class="skeleton skeleton-line" style="width:70%;"></div>
+            </div>
+        </div>
+
+        <section class="chapters-panel" id="chapters-panel" style="display:none;">
+            <div class="chapters-panel__head">
+                <h2 class="section__title">Daftar Chapter</h2>
+                <select id="chapter-lang" aria-label="Pilih bahasa chapter"></select>
+            </div>
+            <div class="chapter-list" id="chapter-list"></div>
+            <div style="text-align:center;margin-top:20px;" id="chapter-load-more"></div>
+        </section>
+    </main>
+</div>
+
+<footer class="footer">
+    <div class="shell">
+        <div class="footer__inner">
+            <div class="footer__brand">Yo<span class="brand__accent">mu</span></div>
+            <div>
+                <a href="https://mangadex.org" target="_blank" rel="noopener">MangaDex.org</a> ·
+                <a href="https://github.com/md-y/mangadex-full-api" target="_blank" rel="noopener">mangadex-full-api</a>
+            </div>
+        </div>
+        <p class="footer__disclaimer">
+            Yomu adalah proyek pribadi non-komersial yang menampilkan data dari API publik MangaDex melalui pustaka
+            mangadex-full-api. Seluruh judul, sampul, dan konten manga adalah hak milik penerbit dan pengarang
+            masing-masing, dan di-hosting oleh MangaDex — bukan oleh situs ini.
+        </p>
+    </div>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/manga.js"></script>
+<script>initNavbar('manga');</script>
+</body>
+</html>
