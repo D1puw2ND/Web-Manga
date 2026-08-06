@@ -1,0 +1,1333 @@
+/* =========================================================================
+   YOMU — design tokens
+   Palet gelap minimalis terinspirasi dashboard streaming (Crunchyroll-ish):
+   dasar nyaris hitam, satu aksen jingga tegas, tipografi Chewy untuk judul
+   (sesuai permintaan) dipadukan dengan Plus Jakarta Sans untuk isi supaya
+   tetap enak dibaca, dan JetBrains Mono untuk angka/data kecil (nomor bab,
+   halaman, tahun) sebagai sentuhan khas "data manga".
+   ========================================================================= */
+:root {
+    --bg-void: #0a0a0d;
+    --bg-surface: #15151b;
+    --bg-surface-raised: #1e1e26;
+    --bg-surface-hover: #24242e;
+    --border-subtle: #26262f;
+    --border-strong: #34343f;
+
+    --text-primary: #f3f2f7;
+    --text-secondary: #a5a3b0;
+    --text-tertiary: #6f6d7a;
+
+    --accent: #ff5d1f;
+    --accent-hover: #ff7a45;
+    --accent-soft: rgba(255, 93, 31, 0.14);
+    --accent-border: rgba(255, 93, 31, 0.35);
+
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --danger: #ff4d6d;
+
+    --font-display: 'Chewy', cursive;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --shell-max: 1400px;
+
+    --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --shadow-pop: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* =========================================================================
+   Reset dasar
+   ========================================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg-void);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+}
+
+input, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+::selection {
+    background: var(--accent);
+    color: #17100b;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.shell {
+    max-width: var(--shell-max);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* =========================================================================
+   Navbar
+   ========================================================================= */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 13, 0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.navbar__inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 68px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 26px;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+}
+
+.brand__mark {
+    width: 30px;
+    height: 30px;
+    color: var(--accent);
+}
+
+.brand__accent {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.nav-links a {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface-raised);
+}
+
+.nav-links a.is-active {
+    color: var(--accent);
+}
+
+.navbar__search {
+    flex: 1;
+    max-width: 480px;
+    margin-left: auto;
+}
+
+.search-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-field svg {
+    position: absolute;
+    left: 14px;
+    width: 16px;
+    height: 16px;
+    color: var(--text-tertiary);
+    pointer-events: none;
+}
+
+.search-field input {
+    width: 100%;
+    padding: 10px 14px 10px 38px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    color: var(--text-primary);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.search-field input::placeholder {
+    color: var(--text-tertiary);
+}
+
+.search-field input:focus {
+    border-color: var(--accent-border);
+    background: var(--bg-surface-raised);
+    outline: none;
+}
+
+.adult-toggle {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    transition: all 0.15s ease;
+}
+
+.adult-toggle[aria-pressed="true"] {
+    color: var(--danger);
+    border-color: rgba(255, 77, 109, 0.4);
+    background: rgba(255, 77, 109, 0.1);
+}
+
+.nav-toggle {
+    display: none;
+}
+
+/* =========================================================================
+   Botones / chips generik
+   ========================================================================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    font-weight: 700;
+    font-size: 14px;
+    background: var(--bg-surface-raised);
+    color: var(--text-primary);
+    transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+    background: var(--bg-surface-hover);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn--primary {
+    background: var(--accent);
+    color: #1a0d05;
+}
+
+.btn--primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn--outline {
+    background: transparent;
+    border-color: var(--border-strong);
+}
+
+.btn--outline:hover {
+    border-color: var(--accent-border);
+}
+
+.btn--sm {
+    padding: 7px 14px;
+    font-size: 13px;
+}
+
+.btn--block {
+    width: 100%;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--bg-surface-raised);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.chip--accent {
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
+    color: var(--accent-hover);
+}
+
+.chip-select {
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: none;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+}
+
+.chip-select:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+.chip-select.is-active {
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
+    color: var(--accent-hover);
+}
+
+.badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.55);
+    color: var(--text-primary);
+    backdrop-filter: blur(4px);
+}
+
+.badge--status-ongoing { color: var(--ok); }
+.badge--status-completed { color: var(--text-secondary); }
+.badge--status-hiatus { color: var(--warn); }
+.badge--status-cancelled { color: var(--danger); }
+
+/* =========================================================================
+   Hero (beranda)
+   ========================================================================= */
+.hero {
+    position: relative;
+    margin-top: 8px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    align-items: flex-end;
+    background: radial-gradient(120% 120% at 20% 0%, #201319 0%, var(--bg-void) 60%);
+    border: 1px solid var(--border-subtle);
+}
+
+.hero__backdrop {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 18%;
+    filter: saturate(1.05) brightness(0.55) blur(1px);
+    transform: scale(1.03);
+    transition: opacity 0.5s ease;
+}
+
+.hero__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(10, 10, 13, 0.1) 0%, rgba(10, 10, 13, 0.55) 55%, var(--bg-void) 100%),
+        linear-gradient(90deg, rgba(10, 10, 13, 0.92) 0%, rgba(10, 10, 13, 0.35) 55%, rgba(10, 10, 13, 0.1) 100%);
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2;
+    padding: 40px 40px 36px;
+    max-width: 620px;
+}
+
+.hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+}
+
+.hero__eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    display: inline-block;
+}
+
+.hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.05;
+    margin-bottom: 14px;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.hero__desc {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 24px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 12px;
+}
+
+.hero__dots {
+    position: absolute;
+    z-index: 3;
+    right: 28px;
+    bottom: 28px;
+    display: flex;
+    gap: 8px;
+}
+
+.hero__dots button {
+    width: 22px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    padding: 0;
+    transition: background-color 0.2s ease, width 0.2s ease;
+}
+
+.hero__dots button.is-active {
+    background: var(--accent);
+    width: 34px;
+}
+
+.hero-skeleton {
+    min-height: 420px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+}
+
+/* =========================================================================
+   Shelf (baris horizontal ala "row" streaming)
+   ========================================================================= */
+.section {
+    margin-top: 52px;
+}
+
+.section__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.section__heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.section__title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--text-primary);
+    position: relative;
+    padding-left: 16px;
+}
+
+.section__title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 4px;
+    border-radius: 4px;
+    background: var(--accent);
+}
+
+.section__sub {
+    color: var(--text-tertiary);
+    font-size: 13px;
+}
+
+.section__link {
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s ease, gap 0.15s ease;
+}
+
+.section__link:hover {
+    color: var(--accent);
+    gap: 9px;
+}
+
+.shelf {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 4px 4px 16px;
+    scroll-snap-type: x proximity;
+}
+
+.shelf::-webkit-scrollbar {
+    height: 8px;
+}
+
+.shelf::-webkit-scrollbar-thumb {
+    background: var(--bg-surface-raised);
+    border-radius: 999px;
+}
+
+.shelf::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.shelf > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+}
+
+.shelf > .state-panel {
+    flex: 1 0 100%;
+    width: 100%;
+    padding: 40px 24px;
+}
+
+/* =========================================================================
+   Kartu manga
+   ========================================================================= */
+.card {
+    width: 168px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--text-primary);
+}
+
+.card__poster {
+    position: relative;
+    width: 168px;
+    height: 240px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover .card__poster {
+    border-color: var(--accent-border);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+}
+
+.card__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.card__poster img.is-loaded {
+    opacity: 1;
+}
+
+.card__badges {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    z-index: 2;
+}
+
+.card__gradient {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 60%;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.75));
+    pointer-events: none;
+}
+
+.card__chapter-pill {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.card__title {
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card:hover .card__title {
+    color: var(--accent-hover);
+}
+
+.card__tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.card__tags span {
+    font-size: 10.5px;
+    color: var(--text-tertiary);
+}
+
+.card--wide {
+    width: 100%;
+}
+
+.card--wide .card__poster {
+    width: 100%;
+}
+
+/* Grid untuk hasil pencarian */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px 16px;
+}
+
+.grid .card {
+    width: 100%;
+}
+
+.grid .card__poster {
+    width: 100%;
+    aspect-ratio: 7 / 10;
+    height: auto;
+}
+
+/* =========================================================================
+   Skeleton loading (shimmer)
+   ========================================================================= */
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+    animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.skeleton-card {
+    width: 168px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skeleton-card .skeleton {
+    width: 168px;
+    height: 240px;
+}
+
+.skeleton-line {
+    height: 12px;
+    border-radius: 4px;
+}
+
+.grid .skeleton-card,
+.grid .skeleton-card .skeleton {
+    width: 100%;
+}
+
+.grid .skeleton-card .skeleton {
+    aspect-ratio: 7 / 10;
+    height: auto;
+}
+
+/* =========================================================================
+   Empty / error / not-found states
+   ========================================================================= */
+.state-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    padding: 70px 24px;
+    color: var(--text-secondary);
+    border: 1px dashed var(--border-subtle);
+    border-radius: var(--radius-lg);
+}
+
+.state-panel svg {
+    width: 46px;
+    height: 46px;
+    color: var(--text-tertiary);
+}
+
+.state-panel__title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text-primary);
+}
+
+.state-panel__desc {
+    max-width: 420px;
+    font-size: 14px;
+}
+
+.state-panel--error svg {
+    color: var(--danger);
+}
+
+/* =========================================================================
+   Footer
+   ========================================================================= */
+.footer {
+    margin-top: 90px;
+    border-top: 1px solid var(--border-subtle);
+    padding: 36px 0 48px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+}
+
+.footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
+
+.footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.footer a:hover {
+    color: var(--accent);
+}
+
+.footer__disclaimer {
+    max-width: 680px;
+    margin-top: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================================================
+   Halaman: pencarian
+   ========================================================================= */
+.search-hero {
+    padding: 40px 0 8px;
+}
+
+.search-hero h1 {
+    font-family: var(--font-display);
+    font-size: 34px;
+}
+
+.search-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    align-items: flex-start;
+    margin-top: 28px;
+}
+
+.filters {
+    position: sticky;
+    top: 88px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.filters__group h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+}
+
+.filters__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.filters select {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface-raised);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+}
+
+.results-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    color: var(--text-secondary);
+    font-size: 13.5px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 36px;
+}
+
+.pagination__page {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* =========================================================================
+   Halaman: detail manga
+   ========================================================================= */
+.manga-header {
+    padding-top: 32px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 36px;
+}
+
+.manga-header__poster {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+}
+
+.manga-header__poster img {
+    width: 100%;
+    aspect-ratio: 7 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-card);
+}
+
+.manga-header__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.manga-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+.manga-alttitles {
+    color: var(--text-tertiary);
+    font-size: 13.5px;
+    margin-bottom: 16px;
+}
+
+.manga-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.manga-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.manga-desc {
+    color: var(--text-secondary);
+    max-width: 74ch;
+    white-space: pre-line;
+}
+
+.manga-authors {
+    margin-top: 18px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+}
+
+.manga-authors strong {
+    color: var(--text-primary);
+}
+
+.chapters-panel {
+    margin-top: 48px;
+}
+
+.chapters-panel__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.chapters-panel__head select {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+}
+
+.chapter-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.chapter-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background-color 0.15s ease;
+}
+
+.chapter-row:last-child {
+    border-bottom: none;
+}
+
+.chapter-row:hover {
+    background: var(--bg-surface-raised);
+}
+
+.chapter-row__num {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 76px;
+}
+
+.chapter-row__title {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chapter-row__date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.chapter-row__lang {
+    flex-shrink: 0;
+}
+
+/* =========================================================================
+   Halaman: pembaca (reader)
+   ========================================================================= */
+body.reader-body {
+    background: #000;
+}
+
+.reader-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px;
+    background: rgba(10, 10, 13, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+    transform: translateY(0);
+    transition: transform 0.25s ease;
+}
+
+.reader-bar.is-hidden {
+    transform: translateY(-100%);
+}
+
+.reader-bar__back {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface-raised);
+    flex: none;
+}
+
+.reader-bar__back:hover {
+    background: var(--bg-surface-hover);
+}
+
+.reader-bar__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.reader-bar__manga {
+    font-size: 12.5px;
+    color: var(--text-tertiary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reader-bar__chapter {
+    font-weight: 700;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reader-bar select {
+    flex-shrink: 0;
+    max-width: 200px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface-raised);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+}
+
+.reader-bar__page-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.reader-pages {
+    max-width: 880px;
+    margin: 84px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reader-page {
+    width: 100%;
+    background: var(--bg-surface);
+    min-height: 300px;
+}
+
+.reader-page img {
+    width: 100%;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.reader-page img.is-loaded {
+    opacity: 1;
+}
+
+.reader-page__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 300px;
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.reader-nav {
+    max-width: 880px;
+    margin: 24px auto 100px;
+    display: flex;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+.reader-nav .btn {
+    flex: 1;
+}
+
+.reader-fab {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 150;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #1a0d05;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-pop);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.reader-fab.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.reader-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 210;
+    transition: width 0.1s linear;
+}
+
+/* =========================================================================
+   404 halaman statis
+   ========================================================================= */
+.notfound-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 18px;
+    padding: 24px;
+}
+
+.notfound-page__code {
+    font-family: var(--font-display);
+    font-size: 96px;
+    color: var(--accent);
+    line-height: 1;
+}
+
+/* =========================================================================
+   Responsif
+   ========================================================================= */
+@media (max-width: 960px) {
+    .search-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        position: static;
+    }
+
+    .manga-header {
+        grid-template-columns: 180px 1fr;
+        gap: 22px;
+    }
+
+    .manga-header__poster {
+        position: static;
+    }
+}
+
+@media (max-width: 720px) {
+    .navbar__inner {
+        height: 60px;
+        gap: 10px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .brand span.brand__text {
+        display: none;
+    }
+
+    .hero__content {
+        padding: 28px 20px 24px;
+    }
+
+    .hero {
+        min-height: 360px;
+    }
+
+    .section {
+        margin-top: 38px;
+    }
+
+    .manga-header {
+        grid-template-columns: 1fr;
+    }
+
+    .manga-header__poster {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .manga-header__actions {
+        justify-content: center;
+    }
+
+    .manga-title, .manga-alttitles, .manga-meta, .manga-tags, .manga-desc, .manga-authors {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .adult-toggle span.adult-toggle__text {
+        display: none;
+    }
+
+    .reader-pages {
+        margin-top: 68px;
+    }
+}
